@@ -1,7 +1,7 @@
 import clientPromise from "./mongodb";
 import { ObjectId } from "mongodb";
 
-const DB_NAME = "portfolio_db";
+const DB_NAME = "portfolio";
 
 class MongoService {
   private async collection(collectionName: string) {
