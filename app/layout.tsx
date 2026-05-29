@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "./providers";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import { ParticleCanvas } from "@/components/ParticleBackground";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -41,18 +42,20 @@ export default function RootLayout({
         roboto.variable,
       )}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col bg-background text-foreground relative z-0">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <ParticleCanvas />
           <Navbar />
-          <main className="flex-1 w-full flex flex-col">{children}</main>
+          <main className="flex-1 w-full flex flex-col z-10">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
