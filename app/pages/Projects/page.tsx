@@ -1,7 +1,8 @@
-import React from "react";
+import db from "@/lib/db";
+import ProjectsPage from "@/components/projects/ProjectsPage";
 
-const page = () => {
-  return <div>Projects</div>;
-};
+export default async function Page() {
+  const projects = await db.get("projects");
 
-export default page;
+  return <ProjectsPage projects={JSON.parse(JSON.stringify(projects))} />;
+}

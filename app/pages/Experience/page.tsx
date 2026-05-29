@@ -1,7 +1,8 @@
-import React from "react";
+import ExperiencePage from "@/components/experience/ExperiencePage";
+import db from "@/lib/db";
 
-const page = () => {
-  return <div>Experience and Qualification</div>;
-};
+export default async function Page() {
+  const data = await db.getOne("myinfo");
 
-export default page;
+  return <ExperiencePage data={JSON.parse(JSON.stringify(data))} />;
+}
