@@ -53,7 +53,11 @@ const Navbar = () => {
           href="/pages/Home"
           isActive={pathname === "/pages/Home" || pathname === "/"}
         />
-        <NavBtn label="About" href="/About" isActive={pathname === "/About"} />
+        <NavBtn
+          label="About"
+          href="/pages/About"
+          isActive={pathname === "/pages/About"}
+        />
         <NavBtn
           label="Experience"
           href="/pages/Experience"
