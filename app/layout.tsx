@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "./providers";
 import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/footer/Footer";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -49,6 +50,7 @@ export default function RootLayout({
         >
           <Navbar />
           <main className="flex-1 w-full flex flex-col">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
