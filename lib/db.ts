@@ -6,42 +6,68 @@ const DB_NAME = "portfolio";
 class MongoService {
   private async collection(collectionName: string) {
     const client = await clientPromise;
+
     return client.db(DB_NAME).collection(collectionName);
   }
 
-  async get(collectionName: string, filter = {}) {
+  // GET MANY
+  async get(collectionName: string, filter: any = {}) {
     const collection = await this.collection(collectionName);
 
-    return await collection.find(filter).toArray();
+    return collection.find(filter).toArray();
   }
 
-  async getOne(collectionName: string, filter = {}) {
+  // GET ONE
+  async getOne(collectionName: string, filter: any = {}) {
     const collection = await this.collection(collectionName);
 
-    return await collection.findOne(filter);
+    return collection.findOne(filter);
   }
 
-  async post(collectionName: string, body: any) {
+  // INSERT ONE
+  async insertOne(collectionName: string, data: any) {
     const collection = await this.collection(collectionName);
 
-    return await collection.insertOne(body);
+    return collection.insertOne(data);
   }
 
-  async put(collectionName: string, id: string, body: any) {
+  // UPDATE BY ID
+  async updateById(collectionName: string, id: string, data: any) {
     const collection = await this.collection(collectionName);
 
-    return await collection.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: body },
+    return collection.updateOne(
+      {
+        _id: new ObjectId(id),
+      },
+      {
+        $set: data,
+      },
     );
   }
 
-  async delete(collectionName: string, id: string) {
+  // UPDATE BY FILTER
+  async updateOne(collectionName: string, filter: any, data: any) {
     const collection = await this.collection(collectionName);
 
-    return await collection.deleteOne({
+    return collection.updateOne(filter, {
+      $set: data,
+    });
+  }
+
+  // DELETE BY ID
+  async deleteById(collectionName: string, id: string) {
+    const collection = await this.collection(collectionName);
+
+    return collection.deleteOne({
       _id: new ObjectId(id),
     });
+  }
+
+  // DELETE BY FILTER
+  async deleteOne(collectionName: string, filter: any) {
+    const collection = await this.collection(collectionName);
+
+    return collection.deleteOne(filter);
   }
 }
 
