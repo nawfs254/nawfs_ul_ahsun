@@ -1,6 +1,21 @@
 import { Download } from "lucide-react";
 
 export default function ExperienceHero({ data }: { data: any }) {
+  const handleResume = () => {
+    const pdfUrl = "/assets/cv.pdf";
+
+    // Open preview in new tab
+    window.open(pdfUrl, "_blank");
+
+    // Trigger download
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "Nawfs-Ul-Ahsun_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="mb-14">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-blue-500">
@@ -18,13 +33,13 @@ export default function ExperienceHero({ data }: { data: any }) {
           </p>
         </div>
 
-        <a
-          href={data.resumeUrl}
+        <button
+          onClick={handleResume}
           className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-white transition hover:bg-blue-700"
         >
           <Download size={18} />
           Download Resume
-        </a>
+        </button>
       </div>
     </div>
   );

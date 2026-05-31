@@ -1,4 +1,5 @@
 export default function AboutInfo({ data }: { data: any }) {
+  console.log(data);
   return (
     <section>
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">
@@ -17,9 +18,9 @@ export default function AboutInfo({ data }: { data: any }) {
         <div>
           <div className="relative overflow-hidden rounded-3xl border border-border bg-card">
             <img
-              src={data.about?.profileImage || "/profile.jpg"}
+              src={data.profileImage || "/assets/image.jpg"}
               alt={data.name}
-              className="h-[500px] w-full object-cover"
+              className="w-full object-cover"
             />
 
             <div className="absolute bottom-5 right-5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 px-5 py-2 text-sm text-white">

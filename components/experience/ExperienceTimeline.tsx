@@ -1,3 +1,5 @@
+import { formatDate } from "@/lib/formatDate";
+
 export default function ExperienceTimeline({
   experiences,
 }: {
@@ -25,7 +27,8 @@ export default function ExperienceTimeline({
               </div>
 
               <div className="text-sm text-muted-foreground">
-                {exp.timeline.from} — {exp.timeline.to || "Present"}
+                {formatDate(exp.timeline.from) || "Present"} —{" "}
+                {formatDate(exp.timeline.to) || "Present"}
               </div>
             </div>
 

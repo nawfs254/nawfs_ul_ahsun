@@ -50,13 +50,13 @@ export default function ContactInfo({ data }: { data: any }) {
       <div className="rounded-3xl border border-border bg-card p-6">
         <h3 className="mb-5 font-semibold">Social Links</h3>
 
-        <div className="space-y-3">
+        <div className="flex gap-2 flex-wrap">
           {data.contactLinks?.map((link: any) => (
             <a
               key={link.name}
               href={link.url}
               target="_blank"
-              className="flex items-center justify-between rounded-xl border border-border p-4 transition hover:bg-muted"
+              className="flex items-center justify-between rounded-xl border border-border p-2 transition hover:bg-muted"
             >
               <span>{link.name}</span>
 

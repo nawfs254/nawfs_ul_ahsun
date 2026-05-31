@@ -1,4 +1,5 @@
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import Link from "next/link";
+import DynamicIcon from "../DynamicIcon";
 
 interface HeroProps {
   profile: any;
@@ -30,29 +31,50 @@ export default function HeroSection({ profile }: HeroProps) {
           </p>
 
           <div className="mt-10 flex gap-4">
-            <button className="px-6 py-3 rounded-xl bg-linear-to-r from-blue-700 to-blue-500 text-white font-medium text-sm md:text-base">
+            <Link
+              href={"/pages/projects"}
+              className="px-6 py-3 rounded-xl bg-linear-to-r from-blue-700 to-blue-500 text-white font-medium text-sm md:text-base"
+            >
               View Projects
-            </button>
+            </Link>
 
-            <button className="px-6 py-3 rounded-xl border border-border text-sm md:text-base">
+            <Link
+              href={"/pages/contact"}
+              className="px-6 py-3 rounded-xl border border-border text-sm md:text-base"
+            >
               Contact Me
-            </button>
+            </Link>
           </div>
 
           <div className="mt-10 flex items-center gap-4">
-            <a className="h-12 w-12 rounded-full border flex items-center justify-center">
-              <FaGithub />
-            </a>
+            {profile?.contactLinks?.map((link: any) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+          h-12
+          w-12
+          rounded-full
+          border
+          flex
+          items-center
+          justify-center
+          transition-all
+          hover:border-blue-500
+          hover:text-blue-500
+        "
+              >
+                <DynamicIcon
+                  iconLibrary={link.iconLibrary}
+                  icon={link.icon}
+                  className="text-lg"
+                />
+              </a>
+            ))}
 
-            <a className="h-12 w-12 rounded-full border flex items-center justify-center">
-              <FaLinkedin />
-            </a>
-
-            <a className="h-12 w-12 rounded-full border flex items-center justify-center">
-              <FaEnvelope />
-            </a>
-
-            <span className="text-muted-foreground ml-2">Find me on</span>
+            <span className="ml-2 text-muted-foreground">Find me on</span>
           </div>
         </div>
 
@@ -69,9 +91,9 @@ export default function HeroSection({ profile }: HeroProps) {
           </div>
 
           <div className="grid grid-cols-3 gap-4 mt-8 w-full max-w-md">
-            <StatCard value="2+" label="Years Exp." />
-            <StatCard value="15+" label="Projects" />
-            <StatCard value="8+" label="Tech Stack" />
+            {profile.stats?.map((stat: any, index: number) => (
+              <StatCard key={index} value={stat.value} label={stat.label} />
+            ))}
           </div>
         </div>
       </div>

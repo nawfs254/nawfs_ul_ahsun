@@ -8,7 +8,7 @@ export default async function Footer() {
   const profile = await db.getOne("myinfo");
 
   return (
-    <footer className="mt-auto border-t border-border py-10">
+    <footer className="mt-auto border-t border-border pb-10">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-xs font-bold text-white">
@@ -30,7 +30,7 @@ export default async function Footer() {
               target="_blank"
               className="
                 group
-                flex h-20 w-20 items-center justify-center
+                flex h-10 w-10 items-center justify-center
                 rounded-xl border border-border bg-card
                 transition-all duration-300
                 hover:-translate-y-1

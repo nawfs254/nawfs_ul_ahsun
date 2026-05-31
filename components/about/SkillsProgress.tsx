@@ -1,7 +1,7 @@
 export default function SkillsProgress({ skills }: { skills: any[] }) {
   const topSkills = [...skills]
     .sort((a, b) => b.proficiency - a.proficiency)
-    .slice(0, 6);
+    .slice(0, 8);
 
   return (
     <section>
