@@ -46,7 +46,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center mt-20">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8">
         <h1 className="mb-8 text-center text-3xl font-bold">Admin Login</h1>
 
@@ -56,7 +56,10 @@ export default function LoginPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-border p-3"
+            className="w-full rounded-sm border border-border p-3"
+            style={{
+              padding: "5px",
+            }}
           />
 
           <input
@@ -64,7 +67,10 @@ export default function LoginPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-border p-3"
+            className="w-full rounded-sm border border-border p-3"
+            style={{
+              padding: "5px",
+            }}
           />
 
           <button

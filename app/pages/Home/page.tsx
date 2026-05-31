@@ -1,6 +1,6 @@
-import HeroSection from "@/components/HeroSection/HeroSection";
+import HeroSection from "@/components/herosection/HeroSection";
 import FeaturedProjects from "@/components/projects/FeaturedProjects";
-import TechStackSection from "@/components/TechStackSection/TechStackSection";
+import TechStackSection from "@/components/techstacksection/TechStackSection";
 import db from "@/lib/db";
 import React from "react";
 
@@ -12,9 +12,9 @@ const page = async () => {
     <div className="">
       <HeroSection profile={myinfo} />
       <TechStackSection techStack={myinfo?.techStack} />
-      <FeaturedProjects
+      {/* <FeaturedProjects
         projects={JSON.parse(JSON.stringify(featuredProjects))}
-      />
+      /> */}
     </div>
   );
 };

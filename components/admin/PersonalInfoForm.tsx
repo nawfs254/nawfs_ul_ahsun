@@ -1,7 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { User, Briefcase, Mail, MapPin, Link as LinkIcon, Image as ImageIcon, Library, Trash2, Plus, Save } from "lucide-react";
+import {
+  User,
+  Briefcase,
+  Mail,
+  MapPin,
+  Link as LinkIcon,
+  Image as ImageIcon,
+  Library,
+  Trash2,
+  Plus,
+  Save,
+} from "lucide-react";
 
 export default function PersonalInfoForm() {
   const [data, setData] = useState<any>(null);
@@ -51,7 +62,9 @@ export default function PersonalInfoForm() {
       <div className="flex items-center justify-between rounded-3xl bg-card p-6 shadow-sm border border-border">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Personal Info</h1>
-          <p className="text-muted-foreground mt-1">Manage your public profile details</p>
+          <p className="text-muted-foreground mt-1">
+            Manage your public profile details
+          </p>
         </div>
 
         <button
@@ -67,7 +80,9 @@ export default function PersonalInfoForm() {
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-12">
           <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight">Basic Information</h2>
+            <h2 className="mb-6 text-2xl font-semibold tracking-tight">
+              Basic Information
+            </h2>
 
             <div className="grid gap-6 md:grid-cols-2">
               <div className="space-y-2">
@@ -112,7 +127,9 @@ export default function PersonalInfoForm() {
                 </label>
                 <input
                   value={data.location || ""}
-                  onChange={(e) => setData({ ...data, location: e.target.value })}
+                  onChange={(e) =>
+                    setData({ ...data, location: e.target.value })
+                  }
                   placeholder="New York, USA"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 />
@@ -124,7 +141,9 @@ export default function PersonalInfoForm() {
         <div className="lg:col-span-12">
           <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-semibold tracking-tight">Contact Links</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">
+                Contact Links
+              </h2>
               <button
                 onClick={() =>
                   setData({
@@ -149,7 +168,10 @@ export default function PersonalInfoForm() {
               )}
 
               {data.contactLinks?.map((link: any, index: number) => (
-                <div key={index} className="relative grid gap-4 rounded-2xl border border-border bg-background p-5 shadow-sm sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 items-end">
+                <div
+                  key={index}
+                  className="relative grid gap-4 rounded-2xl border border-border bg-background p-5 shadow-sm sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 items-end"
+                >
                   <div className="space-y-2">
                     <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
                       <LinkIcon size={14} /> Name
@@ -163,6 +185,9 @@ export default function PersonalInfoForm() {
                       }}
                       placeholder="e.g. GitHub"
                       className="w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                      style={{
+                        padding: "5px",
+                      }}
                     />
                   </div>
 
@@ -179,6 +204,9 @@ export default function PersonalInfoForm() {
                       }}
                       placeholder="e.g. fa-github"
                       className="w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                      style={{
+                        padding: "5px",
+                      }}
                     />
                   </div>
 
@@ -195,6 +223,9 @@ export default function PersonalInfoForm() {
                       }}
                       placeholder="e.g. fa"
                       className="w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                      style={{
+                        padding: "5px",
+                      }}
                     />
                   </div>
 
@@ -212,10 +243,15 @@ export default function PersonalInfoForm() {
                         }}
                         placeholder="https://"
                         className="w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        style={{
+                          padding: "5px",
+                        }}
                       />
                       <button
                         onClick={() => {
-                          const updated = data.contactLinks.filter((_: any, i: number) => i !== index);
+                          const updated = data.contactLinks.filter(
+                            (_: any, i: number) => i !== index,
+                          );
                           setData({ ...data, contactLinks: updated });
                         }}
                         className="flex shrink-0 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:border-red-300 dark:border-red-900/30 dark:bg-red-900/20 dark:hover:bg-red-900/40 px-3 transition-colors"
@@ -234,4 +270,3 @@ export default function PersonalInfoForm() {
     </div>
   );
 }
-

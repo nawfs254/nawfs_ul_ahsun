@@ -6,12 +6,28 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleResume = () => {
+    const pdfUrl = "/assets/cv.pdf";
+
+    // Open preview in new tab
+    window.open(pdfUrl, "_blank");
+
+    // Trigger download
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "Nawfs-Ul-Ahsun_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -50,28 +66,28 @@ const Navbar = () => {
       <div className="hidden lg:flex items-center gap-1">
         <NavBtn
           label="Home"
-          href="/pages/Home"
-          isActive={pathname === "/pages/Home" || pathname === "/"}
+          href="/pages/home"
+          isActive={pathname === "/pages/home" || pathname === "/"}
         />
         <NavBtn
           label="About"
-          href="/pages/About"
-          isActive={pathname === "/pages/About"}
+          href="/pages/about"
+          isActive={pathname === "/pages/about"}
         />
         <NavBtn
           label="Experience"
-          href="/pages/Experience"
-          isActive={pathname === "/pages/Experience"}
+          href="/pages/experience"
+          isActive={pathname === "/pages/experience"}
         />
         <NavBtn
           label="Projects"
-          href="/pages/Projects"
-          isActive={pathname === "/pages/Projects"}
+          href="/pages/projects"
+          isActive={pathname === "/pages/projects"}
         />
         <NavBtn
           label="Contact"
-          href="/pages/Contact"
-          isActive={pathname === "/pages/Contact"}
+          href="/pages/contact"
+          isActive={pathname === "/pages/contact"}
         />
       </div>
 
@@ -111,12 +127,18 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex items-center gap-4">
-          <button className="px-5 py-2 text-[15px] font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-sm hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors shadow-sm dark:shadow-none">
+          <button
+            onClick={handleResume}
+            className="px-5 py-2 text-[15px] font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-sm hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors shadow-sm dark:shadow-none"
+          >
             Resume
           </button>
-          <button className="px-5 py-2 text-[15px] font-medium text-white bg-linear-to-r from-blue-700 to-blue-500 rounded-sm hover:opacity-90 transition-opacity shadow-sm shadow-blue-200/50 dark:shadow-none">
+          <Link
+            href={"/pages/contact"}
+            className="px-5 py-2 text-[15px] font-medium text-white bg-linear-to-r from-blue-700 to-blue-500 rounded-sm hover:opacity-90 transition-opacity shadow-sm shadow-blue-200/50 dark:shadow-none"
+          >
             Hire Me
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -142,8 +164,8 @@ const Navbar = () => {
             <div className="flex flex-col gap-2 mt-4">
               <NavBtn
                 label="Home"
-                href="/pages/Home"
-                isActive={pathname === "/pages/Home" || pathname === "/"}
+                href="/pages/home"
+                isActive={pathname === "/pages/home" || pathname === "/"}
               />
               <NavBtn
                 label="About"
@@ -168,12 +190,18 @@ const Navbar = () => {
             </div>
             <div className="h-px bg-gray-100 dark:bg-gray-800 my-4" />
             <div className="flex flex-col gap-4 pb-10">
-              <button className="w-full px-5 py-3 text-[15px] font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-sm hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <button
+                onClick={handleResume}
+                className="w-full px-5 py-3 text-[15px] font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-sm hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+              >
                 Resume
               </button>
-              <button className="w-full px-5 py-3 text-[15px] font-medium text-white bg-linear-to-r from-blue-700 to-blue-500 rounded-sm hover:opacity-90 transition-opacity">
+              <Link
+                href={"/pages/contact"}
+                className="w-full px-5 py-3 text-[15px] font-medium text-white bg-linear-to-r from-blue-700 to-blue-500 rounded-sm hover:opacity-90 transition-opacity"
+              >
                 Hire Me
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}
