@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
+import Carousel from "./Carousel";
 
 export interface Project {
   _id?: string;
   title: string;
   description: string;
-  image: string;
+  images?: string[]; // optional list of image URLs for slideshow
+  image?: string; // fallback single image
   category: string;
   technologies: string[];
   githubUrl?: string;
@@ -24,20 +26,23 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
     <div
       onClick={() => onClick?.(project)}
-      className="group cursor-pointer overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+      className="group cursor-pointer overflow-hidden rounded-sm border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
-      <div className="h-56 overflow-hidden">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+      {/* Image Slideshow */}
+      <div className="relative h-56 overflow-hidden">
+        {project.images?.length ? (
+          <Carousel images={project.images} alt={project.title} />
+        ) : project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="h-full w-full object-cover"
+          />
+        ) : null}
       </div>
-
-      <div className="space-y-4 p-5">
+      <div className="space-y-4 p-2">
         <div>
           <h3 className="text-xl font-semibold">{project.title}</h3>
-
           <p className="mt-2 text-sm text-muted-foreground line-clamp-3">
             {project.description}
           </p>
@@ -66,7 +71,6 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
               Live Demo
             </Link>
           )}
-
           {project.githubUrl && (
             <Link
               href={project.githubUrl}

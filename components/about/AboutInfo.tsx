@@ -38,7 +38,7 @@ export default function AboutInfo({ data }: { data: any }) {
             </p>
           ))}
 
-          <div className="mt-8 grid grid-cols-2 gap-8">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <p className="text-sm text-muted-foreground">Name</p>
 

@@ -18,7 +18,7 @@ export default function FeaturedProjects({ projects }: { projects: any[] }) {
           </div>
 
           <Link
-            href="/pages/Projects"
+            href="/pages/projects"
             className="flex items-center gap-2 text-sm font-medium text-blue-500 hover:gap-3 transition-all"
           >
             View all projects

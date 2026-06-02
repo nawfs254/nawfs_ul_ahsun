@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import ProjectCard from "./ProjectCard";
-import ProjectModal from "./ProjectModal";
+import GalleryModal from "./GalleryModal";
 
 export default function ProjectsPage({ projects }: { projects: any[] }) {
   const [category, setCategory] = useState("All");
@@ -116,12 +116,26 @@ export default function ProjectsPage({ projects }: { projects: any[] }) {
         </div>
       </div>
 
-      {selectedProject && (
+      {/* {selectedProject && (
         <ProjectModal
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
         />
-      )}
+      )} */}
+      <GalleryModal
+        open={!!selectedProject}
+        title={selectedProject?.title}
+        images={
+          Array.isArray(selectedProject?.images)
+            ? selectedProject.images
+            : typeof selectedProject?.images === "string"
+              ? selectedProject.images.split(",")
+              : selectedProject?.image
+                ? [selectedProject.image]
+                : []
+        }
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }

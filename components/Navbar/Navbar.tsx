@@ -169,23 +169,23 @@ const Navbar = () => {
               />
               <NavBtn
                 label="About"
-                href="/About"
-                isActive={pathname === "/About"}
+                href="/pages/about"
+                isActive={pathname === "/pages/about"}
               />
               <NavBtn
                 label="Experience"
-                href="/pages/Experience"
-                isActive={pathname === "/pages/Experience"}
+                href="/pages/experience"
+                isActive={pathname === "/pages/experience"}
               />
               <NavBtn
                 label="Projects"
-                href="/pages/Projects"
-                isActive={pathname === "/pages/Projects"}
+                href="/pages/projects"
+                isActive={pathname === "/pages/projects"}
               />
               <NavBtn
                 label="Contact"
-                href="/pages/Contact"
-                isActive={pathname === "/pages/Contact"}
+                href="/pages/contact"
+                isActive={pathname === "/pages/contact"}
               />
             </div>
             <div className="h-px bg-gray-100 dark:bg-gray-800 my-4" />

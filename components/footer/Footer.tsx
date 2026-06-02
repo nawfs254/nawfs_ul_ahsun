@@ -9,7 +9,7 @@ export default async function Footer() {
 
   return (
     <footer className="mt-auto border-t border-border pb-10">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+      <div className="mx-auto flex flex-col md:flex-row gap-3 max-w-7xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-xs font-bold text-white">
             N
