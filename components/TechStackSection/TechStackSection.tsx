@@ -1,6 +1,7 @@
 import DynamicIcon from "../DynamicIcon";
 
 export default function TechStackSection({ techStack }: { techStack: any[] }) {
+  //Tech Stack Section
   return (
     <section className="py-5">
       <div className="max-w-7xl mx-auto">

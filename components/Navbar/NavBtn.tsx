@@ -9,6 +9,7 @@ interface NavBtnProps {
 
 const NavBtn = ({ label, href, isActive }: NavBtnProps) => {
   return (
+    // added this line just to test git diff, will remove after commit
     <Link
       href={href}
       className={`flex flex-col items-center justify-center px-4 py-1 rounded-sm text-[15px] font-medium transition-colors duration-200 

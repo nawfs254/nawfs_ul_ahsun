@@ -125,7 +125,7 @@ const Navbar = () => {
           </button>
         )}
 
-        {/* Desktop Buttons */}
+        {/* Desktop Buttons here */}
         <div className="hidden lg:flex items-center gap-4">
           <button
             onClick={handleResume}

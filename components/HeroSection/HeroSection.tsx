@@ -9,7 +9,6 @@ export default function HeroSection({ profile }: HeroProps) {
   return (
     <section className="max-w-7xl mx-auto min-h-[calc(100vh-80px)] flex items-center px-6">
       <div className="grid lg:grid-cols-2 gap-16 items-center w-full mt-3">
-        {/* LEFT */}
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1 text-xs text-cyan-500">
             <span className="h-2 w-2 rounded-full bg-cyan-500" />
