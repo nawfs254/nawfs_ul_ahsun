@@ -1,10 +1,5 @@
-import db from "@/lib/db";
-import ContactPage from "@/components/contact/ContactPage";
+import { redirect } from "next/navigation";
 
-const Page = async () => {
-  const profile = await db.getOne("myinfo");
-
-  return <ContactPage data={JSON.parse(JSON.stringify(profile))} />;
-};
-
-export default Page;
+export default function ContactPage() {
+  redirect("/#contact");
+}

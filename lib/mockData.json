@@ -1,0 +1,125 @@
+{
+  "myinfo": [
+    {
+      "name": "Nawfs Ul Ahsun",
+      "title": "Full Stack Developer",
+      "email": "nawfs.cs254@gmail.com",
+      "location": "Dhaka, Bangladesh",
+      "hiringStatus": "Available for Hire",
+      "profileImage": "/assets/image.jpg",
+      "description": "I build robust, elegant and high-performing full stack web applications.",
+      "about": {
+        "title": "The Story Behind the Developer",
+        "subtitle": "I'm a Full Stack Developer dedicated to crafting clean, efficient, and user-centric digital experiences.",
+        "bio": [
+          "I'm a software developer based in Dhaka, Bangladesh. I specialize in designing and building beautiful, functional web applications.",
+          "My passion lies in solving complex problems, building scalable ERP modules, and automating operations using modern web technologies."
+        ]
+      },
+      "workExp": [
+        {
+          "position": "Full Stack Developer",
+          "workPlace": "OSL",
+          "timeline": { "from": "2024-01-01T00:00:00.000Z", "to": null },
+          "jobDesc": [
+            "Led the design and development of multiple healthcare ERP modules.",
+            "Optimized frontend performance, reducing page load times by 40%.",
+            "Collaborated with cross-functional teams to integrate complex backend workflows."
+          ],
+          "techStack": ["Next.js", "React", "Node.js", "MongoDB", "Tailwind CSS"]
+        }
+      ],
+      "education": [
+        {
+          "degree": "Bachelor of Science in Computer Science",
+          "institute": "United International University",
+          "result": "CGPA: 3.85 / 4.00",
+          "timeline": { "from": "2020", "to": "2024" }
+        }
+      ],
+      "techStack": [
+        { "name": "React", "category": "Frontend", "proficiency": 90 },
+        { "name": "Next.js", "category": "Frontend", "proficiency": 85 },
+        { "name": "TypeScript", "category": "Languages", "proficiency": 80 },
+        { "name": "Tailwind CSS", "category": "Frontend", "proficiency": 95 },
+        { "name": "Node.js", "category": "Backend", "proficiency": 85 },
+        { "name": "Express", "category": "Backend", "proficiency": 80 },
+        { "name": "MongoDB", "category": "Database", "proficiency": 75 },
+        { "name": "Firebase", "category": "Backend", "proficiency": 70 }
+      ],
+      "certifications": [
+        {
+          "title": "Full Stack Web Development",
+          "issuer": "Coursera"
+        }
+      ],
+      "offeredServices": [
+        {
+          "title": "Web Development",
+          "description": "Building high-performance responsive web applications using modern stacks."
+        },
+        {
+          "title": "ERP Solutions",
+          "description": "Custom enterprise resource planning modules to automate business logic."
+        }
+      ],
+      "contactLinks": [
+        {
+          "name": "GitHub",
+          "icon": "FaGithub",
+          "iconLibrary": "fa6",
+          "url": "https://github.com/nawfs254"
+        },
+        {
+          "name": "LinkedIn",
+          "icon": "FaLinkedin",
+          "iconLibrary": "fa6",
+          "url": "https://linkedin.com/in/nawfs-ul-ahsun"
+        }
+      ],
+      "experienceHero": {
+        "title": "My Professional Journey",
+        "subtitle": "A summary of my professional experience, education, and technical expertise."
+      }
+    }
+  ],
+  "projects": [
+    {
+      "_id": "64dgc1w00000000000000001",
+      "title": "e-Prescription Module",
+      "description": "A dynamic, responsive digital prescription system integrated into a healthcare ERP, standardizing input rows and medication management.",
+      "category": "ERP",
+      "technologies": ["Next.js", "React", "Node.js", "MongoDB", "Zustand"],
+      "featured": true,
+      "images": [
+        "/projects/ePrescription/1.png",
+        "/projects/ePrescription/2.png",
+        "/projects/ePrescription/3.png",
+        "/projects/ePrescription/4.png"
+      ]
+    },
+    {
+      "_id": "64dgc1w00000000000000002",
+      "title": "Dynamic Hospital Dashboard",
+      "description": "A real-time data visualization dashboard monitoring patient admission, doctor schedules, and clinical metrics.",
+      "category": "ERP",
+      "technologies": ["React", "D3.js", "Tailwind CSS", "Express"],
+      "featured": true,
+      "images": [
+        "/projects/dynamicDashboard/1.png",
+        "/projects/dynamicDashboard/2.png"
+      ]
+    },
+    {
+      "_id": "64dgc1w00000000000000003",
+      "title": "Personal Portfolio Website",
+      "description": "My personal developer portfolio built with Next.js App Router, Framer Motion, and Tailwind CSS.",
+      "category": "Web App",
+      "technologies": ["Next.js", "TypeScript", "Framer Motion", "Tailwind CSS"],
+      "featured": true,
+      "images": [
+        "/projects/erp.png"
+      ]
+    }
+  ]
+}

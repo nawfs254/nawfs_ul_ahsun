@@ -1,5 +1,49 @@
-import { redirect } from "next/navigation";
+import React from "react";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import ScrollNavigationDots from "@/components/ScrollNavigationDots";
+import HeroSection from "@/components/herosection/HeroSection";
+import AboutSection from "@/components/about/AboutSection";
+import ExperienceSection from "@/components/experience/ExperienceSection";
+import SkillsSection from "@/components/techstacksection/SkillsSection";
+import ProjectsSection from "@/components/projects/ProjectsSection";
+import EducationSection from "@/components/education/EducationSection";
+import ContactSection from "@/components/contact/ContactSection";
+
+export const metadata = {
+  title: "Nawfs Ul Ahsun | Web Developer & Software Engineer",
+  description:
+    "Personal portfolio of Nawfs Ul Ahsun - Junior Software Engineer at Orange Solutions LTD (United Group). Specialized in React, Next.js, Enterprise ERP Systems, and Healthcare Solutions.",
+};
 
 export default function Page() {
-  redirect("/pages/home");
+  return (
+    <div className="relative w-full flex flex-col">
+      {/* Top Scroll Indicator */}
+      <ScrollProgressBar />
+
+      {/* Floating Vertical Section Navigation Dots */}
+      <ScrollNavigationDots />
+
+      {/* 1. Hero Section (#home) */}
+      <HeroSection />
+
+      {/* 2. About Me Section (#about) */}
+      <AboutSection />
+
+      {/* 3. Professional Experience Section (#experience) */}
+      <ExperienceSection />
+
+      {/* 4. Technical Skills & Tools (#skills) */}
+      <SkillsSection />
+
+      {/* 5. Enterprise Projects & Gallery (#projects) */}
+      <ProjectsSection />
+
+      {/* 6. Academic Credentials (#education) */}
+      <EducationSection />
+
+      {/* 7. Contact Section (#contact) */}
+      <ContactSection />
+    </div>
+  );
 }

@@ -1,31 +1,48 @@
+"use client";
+
 import React from "react";
-import Link from "next/link";
 
 interface NavBtnProps {
   label: string;
   href: string;
   isActive?: boolean;
+  onClick?: () => void;
 }
 
-const NavBtn = ({ label, href, isActive }: NavBtnProps) => {
+const NavBtn = ({ label, href, isActive, onClick }: NavBtnProps) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const element = document.getElementById(targetId);
+      if (element) {
+        const offset = 80; // height of sticky navbar
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+    onClick?.();
+  };
+
   return (
-    // added this line just to test git diff, will remove after commit
-    <Link
+    <a
       href={href}
-      className={`flex flex-col items-center justify-center px-4 py-1 rounded-sm text-[15px] font-medium transition-colors duration-200 
-      ${
+      onClick={handleClick}
+      className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-1.5 ${
         isActive
-          ? "bg-[#f3f4f8] text-gray-900 dark:bg-[#202538] dark:text-gray-100"
-          : "text-gray-500 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-slate-800/40"
+          ? "text-blue-600 dark:text-blue-400 bg-blue-500/10 font-semibold shadow-xs"
+          : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
       }`}
     >
       <span>{label}</span>
-      {isActive ? (
-        <span className="w-4 h-[3px] bg-blue-500 rounded-full mt-1" />
-      ) : (
-        <span className="w-4 h-[3px] opacity-0 mt-1" />
+      {isActive && (
+        <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
       )}
-    </Link>
+    </a>
   );
 };
 
