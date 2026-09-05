@@ -6,6 +6,7 @@ import { ThemeProvider } from "./providers";
 import Footer from "@/components/footer/Footer";
 import { ParticleCanvas } from "@/components/ParticleBackground";
 import Navbar from "@/components/navbar/Navbar";
+import { Analytics } from "@vercel/analytics/next";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -53,6 +54,7 @@ export default function RootLayout({
           <main className="flex-1 w-full flex flex-col z-10">{children}</main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
