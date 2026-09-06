@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import DynamicIcon from "../DynamicIcon";
 import {
   ArrowRight,
@@ -14,7 +15,7 @@ import {
 } from "lucide-react";
 
 export default function HeroSection() {
-  const { personal } = portfolioData;
+  const { personal } = usePortfolioData();
   const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {

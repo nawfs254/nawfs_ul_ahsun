@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import DynamicIcon from "../DynamicIcon";
 import {
   Check,
@@ -13,11 +14,13 @@ import {
   MessageSquare,
   Phone,
   Send,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { cardItemVariants, sectionHeaderVariants, staggerContainerVariants } from "../AnimatedSection";
 
 export default function ContactSection() {
-  const { personal, faqs } = portfolioData;
+  const { personal, faqs } = usePortfolioData();
 
   const [form, setForm] = useState({
     name: "",
@@ -27,6 +30,7 @@ export default function ContactSection() {
   });
 
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
 
@@ -42,7 +46,7 @@ export default function ContactSection() {
     setTimeout(() => setCopiedPhone(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       alert("Please fill in your name, email, and message.");
@@ -50,17 +54,26 @@ export default function ContactSection() {
     }
 
     setStatus("sending");
+    setErrorMessage(null);
 
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to send message. Please try again.");
+      }
+
       setStatus("success");
-      const mailtoUrl = `mailto:${personal.email}?subject=${encodeURIComponent(
-        form.subject || `Portfolio Inquiry from ${form.name}`
-      )}&body=${encodeURIComponent(
-        `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
-      )}`;
-
-      window.open(mailtoUrl, "_blank");
-    }, 500);
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (err: any) {
+      setErrorMessage(err.message || "Failed to send message. Please try again.");
+      setStatus("idle");
+    }
   };
 
   return (
@@ -228,17 +241,18 @@ export default function ContactSection() {
               </p>
 
               {status === "success" ? (
-                <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-center space-y-3">
-                  <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-emerald-500 text-white shadow-md shadow-emerald-500/30">
-                    <Check size={22} />
+                <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-center space-y-3 animate-in fade-in duration-300">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow-md shadow-emerald-500/30">
+                    <Check size={24} />
                   </div>
-                  <h4 className="text-base font-bold text-foreground">Message Ready!</h4>
-                  <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-                    Your email client has been prepared with your message to <strong>{personal.email}</strong>.
+                  <h4 className="text-base font-bold text-foreground">Message Sent Successfully!</h4>
+                  <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
+                    Thank you for reaching out! Your message has been saved to my inbox. I will review your inquiry and reply to your email shortly.
                   </p>
                   <button
                     onClick={() => {
                       setStatus("idle");
+                      setErrorMessage(null);
                       setForm({ name: "", email: "", subject: "", message: "" });
                     }}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-muted hover:bg-muted/80 text-foreground text-xs font-semibold transition-colors cursor-pointer"
@@ -248,6 +262,13 @@ export default function ContactSection() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-5 space-y-3">
+                  {errorMessage && (
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-xs">
+                      <AlertCircle size={15} className="shrink-0" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div>
                       <label className="text-[11px] font-semibold text-muted-foreground block mb-1">
@@ -311,7 +332,10 @@ export default function ContactSection() {
                     className="inline-flex items-center justify-center gap-1.5 px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium text-xs sm:text-sm shadow-md shadow-blue-500/25 hover:shadow-blue-500/35 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-60"
                   >
                     {status === "sending" ? (
-                      <span>Preparing...</span>
+                      <>
+                        <Loader2 size={14} className="animate-spin" />
+                        <span>Sending Message...</span>
+                      </>
                     ) : (
                       <>
                         <Send size={14} />

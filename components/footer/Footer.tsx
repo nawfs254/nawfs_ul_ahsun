@@ -3,11 +3,12 @@
 import React from "react";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import DynamicIcon from "../DynamicIcon";
 import { ArrowUp, Heart } from "lucide-react";
 
 export default function Footer() {
-  const { personal } = portfolioData;
+  const { personal } = usePortfolioData();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

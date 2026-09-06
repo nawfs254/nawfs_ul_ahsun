@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData, ProjectItem } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import GalleryModal from "./GalleryModal";
 import {
   ExternalLink,
@@ -19,7 +20,7 @@ import {
 } from "../AnimatedSection";
 
 export default function ProjectsSection() {
-  const { projects } = portfolioData;
+  const { projects } = usePortfolioData();
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
     null,

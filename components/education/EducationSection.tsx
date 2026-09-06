@@ -3,11 +3,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import { Award, Calendar, GraduationCap, MapPin } from "lucide-react";
 import { cardItemVariants, sectionHeaderVariants, staggerContainerVariants } from "../AnimatedSection";
 
 export default function EducationSection() {
-  const { education } = portfolioData;
+  const { education } = usePortfolioData();
 
   return (
     <section id="education" className="relative py-12 md:py-16 border-t border-border/50 bg-muted/15">

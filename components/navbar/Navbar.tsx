@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Download, FileText, Menu, Moon, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -19,6 +20,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { personal } = usePortfolioData();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -64,7 +66,7 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const handleResume = () => {
-    const pdfUrl = portfolioData.personal.cvPdfUrl || "/assets/cv.pdf";
+    const pdfUrl = personal?.cvPdfUrl || "/assets/cv.pdf";
     window.open(pdfUrl, "_blank");
 
     const link = document.createElement("a");

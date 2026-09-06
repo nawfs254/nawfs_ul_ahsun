@@ -3,11 +3,12 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import { Briefcase, Calendar, CheckCircle2, MapPin } from "lucide-react";
 import { cardItemVariants, sectionHeaderVariants, staggerContainerVariants } from "../AnimatedSection";
 
 export default function ExperienceSection() {
-  const { experiences } = portfolioData;
+  const { experiences } = usePortfolioData();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({

@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import DynamicIcon from "../DynamicIcon";
 import {
   Briefcase,
@@ -18,7 +19,7 @@ import {
 import { cardItemVariants, sectionHeaderVariants, staggerContainerVariants } from "../AnimatedSection";
 
 export default function AboutSection() {
-  const { personal, services, hobbies } = portfolioData;
+  const { personal, services, hobbies } = usePortfolioData();
 
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {

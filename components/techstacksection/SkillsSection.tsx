@@ -3,12 +3,13 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
+import { usePortfolioData } from "@/context/PortfolioContext";
 import DynamicIcon from "../DynamicIcon";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cardItemVariants, sectionHeaderVariants, staggerContainerVariants } from "../AnimatedSection";
 
 export default function SkillsSection() {
-  const { skills } = portfolioData;
+  const { skills } = usePortfolioData();
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [showAll, setShowAll] = useState<boolean>(false);
 
