@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 import { verifyToken, COOKIE_NAME } from "@/lib/auth";
 import db from "@/lib/db";
 import { ObjectId } from "mongodb";
@@ -74,6 +75,11 @@ export async function POST(
       updatedAt: new Date(),
     });
 
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/");
+    } catch {}
+
     return NextResponse.json({ success: true, result });
   } catch (error: any) {
     console.error("Admin data POST error:", error);
@@ -100,6 +106,10 @@ export async function PUT(
 
     if (collection === "personal_information") {
       const result = await db.updatePersonalInfo(body);
+      try {
+        revalidatePath("/", "layout");
+        revalidatePath("/");
+      } catch {}
       return NextResponse.json({ success: true, result });
     }
 
@@ -119,6 +129,11 @@ export async function PUT(
     } else {
       result = await col.updateOne({ id }, { $set: cleanData });
     }
+
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/");
+    } catch {}
 
     return NextResponse.json({ success: true, result });
   } catch (error: any) {
@@ -157,6 +172,11 @@ export async function DELETE(
     } else {
       result = await col.deleteOne({ id });
     }
+
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/");
+    } catch {}
 
     return NextResponse.json({ success: true, result });
   } catch (error: any) {

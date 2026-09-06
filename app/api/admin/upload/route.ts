@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 import { verifyToken, COOKIE_NAME } from "@/lib/auth";
+import clientPromise from "@/lib/mongodb";
+import { DB_NAME } from "@/lib/db";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
@@ -97,9 +100,15 @@ export async function POST(req: Request) {
       }
     }
 
-    // Target directory: public/uploads/<safeFolder>
-    const targetDir = path.join(process.cwd(), "public", "uploads", safeFolder);
-    await mkdir(targetDir, { recursive: true });
+    // Connect to MongoDB Atlas "media" collection
+    let mediaCol: any = null;
+    try {
+      const client = await clientPromise;
+      const db = client.db(DB_NAME);
+      mediaCol = db.collection("media");
+    } catch (dbErr) {
+      console.warn("MongoDB connection warning in upload:", dbErr);
+    }
 
     const uploadedResults: Array<{
       url: string;
@@ -112,11 +121,42 @@ export async function POST(req: Request) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
       const safeName = sanitizeFileName(file.name);
-      const filePath = path.join(targetDir, safeName);
-
-      await writeFile(filePath, buffer);
-
       const publicUrl = `/uploads/${safeFolder}/${safeName}`;
+
+      // 1. Store permanently in MongoDB Atlas (survives all Vercel deployments & serverless lifecycles)
+      if (mediaCol) {
+        try {
+          await mediaCol.updateOne(
+            { filename: safeName, folder: safeFolder },
+            {
+              $set: {
+                filename: safeName,
+                folder: safeFolder,
+                url: publicUrl,
+                contentType: file.type,
+                data: buffer.toString("base64"),
+                size: file.size,
+                originalName: file.name,
+                updatedAt: new Date(),
+              },
+            },
+            { upsert: true }
+          );
+        } catch (saveErr) {
+          console.error("Failed to save media in MongoDB:", saveErr);
+        }
+      }
+
+      // 2. Safely attempt local disk write (optional, for local development convenience)
+      try {
+        const targetDir = path.join(process.cwd(), "public", "uploads", safeFolder);
+        await mkdir(targetDir, { recursive: true });
+        const filePath = path.join(targetDir, safeName);
+        await writeFile(filePath, buffer);
+      } catch {
+        // Read-only filesystem on Vercel serverless — silently fallback to MongoDB
+      }
+
       uploadedResults.push({
         url: publicUrl,
         originalName: file.name,
@@ -124,6 +164,11 @@ export async function POST(req: Request) {
         size: file.size,
       });
     }
+
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/");
+    } catch {}
 
     if (uploadedResults.length === 1) {
       return NextResponse.json({

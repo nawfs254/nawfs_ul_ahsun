@@ -12,6 +12,7 @@ import EducationSection from "@/components/education/EducationSection";
 import ContactSection from "@/components/contact/ContactSection";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata = {
   title: "Nawfs Ul Ahsun | Web Developer & Software Engineer",

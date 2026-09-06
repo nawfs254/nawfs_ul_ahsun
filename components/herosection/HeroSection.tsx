@@ -162,6 +162,9 @@ export default function HeroSection() {
                 <img
                   src={personal.profileImage}
                   alt={personal.name}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/assets/profile.jpg";
+                  }}
                   className="h-full w-full object-cover rounded-full bg-slate-900 group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

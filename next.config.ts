@@ -27,6 +27,14 @@ const nextConfig: NextConfig = {
     "192.168.*.*",
     "172.*.*.*",
   ],
+  async rewrites() {
+    return [
+      {
+        source: "/uploads/:path*",
+        destination: "/api/uploads/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

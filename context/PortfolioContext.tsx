@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   portfolioData,
   ProjectItem,
@@ -31,40 +31,68 @@ export function PortfolioProvider({
   initialData?: Partial<PortfolioDataType>;
   children: React.ReactNode;
 }) {
-  const mergedData: PortfolioDataType = {
-    personal: initialData?.personal || portfolioData.personal,
+  const getMerged = (source?: Partial<PortfolioDataType>): PortfolioDataType => ({
+    personal: source?.personal || portfolioData.personal,
     projects:
-      initialData?.projects && initialData.projects.length > 0
-        ? initialData.projects
+      source?.projects && source.projects.length > 0
+        ? source.projects
         : portfolioData.projects,
     experiences:
-      initialData?.experiences && initialData.experiences.length > 0
-        ? initialData.experiences
+      source?.experiences && source.experiences.length > 0
+        ? source.experiences
         : portfolioData.experiences,
     skills:
-      initialData?.skills && initialData.skills.length > 0
-        ? initialData.skills
+      source?.skills && source.skills.length > 0
+        ? source.skills
         : portfolioData.skills,
     education:
-      initialData?.education && initialData.education.length > 0
-        ? initialData.education
+      source?.education && source.education.length > 0
+        ? source.education
         : portfolioData.education,
     services:
-      initialData?.services && initialData.services.length > 0
-        ? initialData.services
+      source?.services && source.services.length > 0
+        ? source.services
         : portfolioData.services,
     hobbies:
-      initialData?.hobbies && initialData.hobbies.length > 0
-        ? initialData.hobbies
+      source?.hobbies && source.hobbies.length > 0
+        ? source.hobbies
         : portfolioData.hobbies,
     faqs:
-      initialData?.faqs && initialData.faqs.length > 0
-        ? initialData.faqs
+      source?.faqs && source.faqs.length > 0
+        ? source.faqs
         : portfolioData.faqs,
-  };
+  });
+
+  const [data, setData] = useState<PortfolioDataType>(getMerged(initialData));
+
+  // If server passes fresh initialData on navigation/reload, sync it
+  useEffect(() => {
+    if (initialData) {
+      setData(getMerged(initialData));
+    }
+  }, [initialData]);
+
+  // Client-side hydration sync: fetch live MongoDB data to bypass any CDN or static build cache
+  useEffect(() => {
+    let isMounted = true;
+    fetch("/api/portfolio?data=true")
+      .then((res) => res.json())
+      .then((json) => {
+        if (isMounted && json.success && json.data) {
+          setData(getMerged(json.data));
+        }
+      })
+      .catch((err) => {
+        console.warn("Client live data fetch warning:", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
-    <PortfolioContext.Provider value={mergedData}>
+    <PortfolioContext.Provider value={data}>
       {children}
     </PortfolioContext.Provider>
   );

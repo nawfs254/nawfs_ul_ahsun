@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "./providers";
+import { PortfolioProvider } from "@/context/PortfolioContext";
 import Footer from "@/components/footer/Footer";
 import { ParticleCanvas } from "@/components/ParticleBackground";
 import Navbar from "@/components/navbar/Navbar";
@@ -48,10 +49,12 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
         >
-          <ParticleCanvas />
-          <Navbar />
-          <main className="flex-1 w-full flex flex-col z-10">{children}</main>
-          <Footer />
+          <PortfolioProvider>
+            <ParticleCanvas />
+            <Navbar />
+            <main className="flex-1 w-full flex flex-col z-10">{children}</main>
+            <Footer />
+          </PortfolioProvider>
         </ThemeProvider>
       </body>
     </html>

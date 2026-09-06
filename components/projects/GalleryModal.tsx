@@ -116,6 +116,10 @@ export default function GalleryModal({
                     key={current}
                     src={images[current]}
                     alt={`${title} - Screenshot ${current + 1}`}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "/projects/eprescription-system/thumbnail.png";
+                    }}
                     className="max-h-[45vh] lg:max-h-[52vh] w-full object-contain select-none transition-all duration-300"
                   />
                 ) : (

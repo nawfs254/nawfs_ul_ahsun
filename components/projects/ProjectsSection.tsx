@@ -120,6 +120,10 @@ export default function ProjectsSection() {
                   <img
                     src={project.image || (project.images && project.images[0])}
                     alt={project.title}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "/projects/eprescription-system/thumbnail.png";
+                    }}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
 
