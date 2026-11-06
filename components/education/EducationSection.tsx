@@ -11,7 +11,7 @@ export default function EducationSection() {
   const { education } = usePortfolioData();
 
   return (
-    <section id="education" className="relative py-12 md:py-16 border-t border-border/50 bg-muted/15">
+    <section id="education" className="relative z-30 py-12 md:py-16 border-t border-border/50 bg-transparent">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header with Scroll Reveal */}
         <motion.div
@@ -44,7 +44,7 @@ export default function EducationSection() {
             <motion.div
               key={edu.degree}
               variants={cardItemVariants}
-              className="relative flex flex-col justify-between rounded-2xl border border-border/70 bg-card/70 backdrop-blur-xs p-4 sm:p-5 shadow-xs hover:border-blue-500/40 hover:bg-card hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+              className="relative flex flex-col justify-between rounded-2xl border border-border/70 bg-card/90 backdrop-blur-md p-4 sm:p-5 shadow-xs hover:border-blue-500/40 hover:bg-card hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
               <div>
                 {/* Top Icon & Year */}

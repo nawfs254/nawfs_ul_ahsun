@@ -37,7 +37,7 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="relative py-12 md:py-16 border-t border-border/50">
+    <section id="about" className="relative z-30 py-12 md:py-16 border-t border-border/40 bg-transparent">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header with Scroll Reveal */}
         <motion.div
@@ -68,7 +68,7 @@ export default function AboutSection() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 space-y-4"
           >
-            <div className="rounded-2xl border border-border/70 bg-card/60 backdrop-blur-xs p-5 sm:p-6 shadow-xs hover:border-blue-500/30 transition-all duration-300">
+            <div className="rounded-2xl border border-border/70 bg-card/90 backdrop-blur-md p-5 sm:p-6 shadow-md hover:border-blue-500/30 transition-all duration-300">
               <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <span>Who I Am</span>
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
@@ -128,7 +128,7 @@ export default function AboutSection() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={staggerContainerVariants}
-              className="rounded-2xl border border-border/70 bg-card/60 backdrop-blur-xs p-4 sm:p-5 shadow-xs"
+              className="rounded-2xl border border-border/70 bg-card/90 backdrop-blur-md p-4 sm:p-5 shadow-md"
             >
               <h4 className="text-sm font-bold text-foreground mb-3">Beyond the Terminal & Code</h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -136,7 +136,7 @@ export default function AboutSection() {
                   <motion.div
                     key={hobby.name}
                     variants={cardItemVariants}
-                    className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-muted/30 border border-border/50 text-center hover:border-blue-500/40 hover:bg-muted/60 hover:-translate-y-0.5 transition-all duration-200 shadow-xs"
+                    className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-card/70 border border-border/50 text-center hover:border-blue-500/40 hover:bg-card hover:-translate-y-0.5 transition-all duration-200 shadow-xs"
                   >
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500 mb-1.5">
                       <DynamicIcon iconLibrary={hobby.iconLibrary} icon={hobby.icon} className="text-sm" />
@@ -165,7 +165,7 @@ export default function AboutSection() {
               <motion.div
                 key={service.title}
                 variants={cardItemVariants}
-                className="group rounded-xl border border-border/70 bg-card/60 backdrop-blur-xs p-3.5 hover:border-blue-500/40 hover:bg-card/90 transition-all duration-300 shadow-xs hover:-translate-y-0.5 hover:shadow-md"
+                className="group rounded-xl border border-border/70 bg-card/90 backdrop-blur-md p-3.5 hover:border-blue-500/40 hover:bg-card transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="flex items-start gap-3">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 group-hover:scale-105 transition-all">

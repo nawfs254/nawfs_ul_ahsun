@@ -43,7 +43,7 @@ export default function SkillsSection() {
   }, [filteredSkills, showAll]);
 
   return (
-    <section id="skills" className="relative py-12 md:py-16 border-t border-border/50 bg-muted/15">
+    <section id="skills" className="relative z-30 py-12 md:py-16 border-t border-border/40 bg-transparent">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header with Scroll Reveal */}
         <motion.div
@@ -104,7 +104,7 @@ export default function SkillsSection() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.97 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="group relative rounded-xl border border-border/70 bg-card/75 backdrop-blur-xs p-2.5 sm:p-3 flex flex-col justify-between hover:border-blue-500/40 hover:bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="group relative rounded-xl border border-border/70 bg-card/90 backdrop-blur-md p-2.5 sm:p-3 flex flex-col justify-between hover:border-blue-500/40 hover:bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className="flex items-center justify-between gap-1.5">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 group-hover:scale-105 transition-all duration-200">

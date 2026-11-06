@@ -2,20 +2,21 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { portfolioData } from "@/data/portfolioData";
 import { usePortfolioData } from "@/context/PortfolioContext";
 import DynamicIcon from "../DynamicIcon";
+import ComputerMonitor from "../computer/ComputerMonitor";
+import ComputerHeroScreen from "../computer/ComputerHeroScreen";
+import ProjectScreen from "../computer/ProjectScreen";
 import {
   ArrowRight,
   ChevronDown,
   Download,
   FileText,
   Mail,
-  Sparkles,
 } from "lucide-react";
 
 export default function HeroSection() {
-  const { personal } = usePortfolioData();
+  const { personal, projects } = usePortfolioData();
   const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
@@ -44,13 +45,13 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center items-center py-6 md:py-8 pb-20 overflow-hidden"
+      className="relative min-h-[calc(100svh-70px)] flex flex-col justify-center items-center py-4 sm:py-6 md:py-8 pb-10 sm:pb-16 overflow-hidden"
     >
       {/* Background glow accents */}
       <div className="absolute top-1/4 -left-32 w-80 h-80 bg-blue-500/10 dark:bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-center">
           {/* Left Column: Intro & Info */}
           <motion.div
@@ -60,19 +61,19 @@ export default function HeroSection() {
             className="lg:col-span-7 flex flex-col items-start"
           >
             {/* Availability Badge */}
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 backdrop-blur-xs">
-              <span className="relative flex h-1.5 w-1.5">
+            <div className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 backdrop-blur-xs overflow-hidden">
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
               </span>
-              <span>{personal.hiringStatus}</span>
-              <span className="text-muted-foreground/60">•</span>
-              <span className="text-muted-foreground">{personal.location}</span>
+              <span className="shrink-0">{personal.hiringStatus}</span>
+              <span className="text-muted-foreground/60 shrink-0">•</span>
+              <span className="text-muted-foreground truncate max-w-[190px] sm:max-w-none">{personal.location}</span>
             </div>
 
             {/* Main Greeting & Name */}
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-foreground leading-[1.2]">
-              Hi, I'm{" "}
+              Hi, I&apos;m{" "}
               <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 bg-clip-text text-transparent">
                 {personal.name}
               </span>
@@ -92,7 +93,7 @@ export default function HeroSection() {
             </p>
 
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground/80 max-w-xl italic">
-              "{personal.objective}"
+              &ldquo;{personal.objective}&rdquo;
             </p>
 
             {/* Action CTAs */}
@@ -147,61 +148,24 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Avatar Portrait & Quick Stats */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-            className="lg:col-span-5 flex flex-col items-center"
-          >
-            {/* Portrait Image with Glowing Ring */}
-            <div className="relative group">
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 via-cyan-400 to-emerald-500 rounded-full blur-md opacity-40 group-hover:opacity-70 transition duration-500 animate-pulse" />
+          {/* Right Column: Desktop Computer (Flying 3D on desktop, clean responsive on mobile) */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center w-full z-20 min-h-[280px] sm:min-h-[350px] lg:min-h-[420px]">
+            {/* Desktop (>= 1024px): Slot Anchor for the 3D Flying Computer */}
+            <div
+              id="hero-laptop-slot"
+              className="hidden lg:block w-full max-w-[520px] aspect-[16/11] opacity-0 pointer-events-none"
+            />
 
-              <div className="relative h-48 w-48 sm:h-56 sm:w-56 lg:h-60 lg:w-60 rounded-full p-1 bg-gradient-to-tr from-blue-600 to-cyan-400 shadow-xl overflow-hidden">
-                <img
-                  src={personal.profileImage}
-                  alt={personal.name}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/assets/profile.jpg";
-                  }}
-                  className="h-full w-full object-cover rounded-full bg-slate-900 group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              {/* Floating Technology Badge */}
-              <div className="absolute -bottom-1 -right-1 sm:bottom-1 sm:right-1 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md px-3 py-1.5 shadow-lg flex items-center gap-2">
-                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-500/15 text-blue-500 font-bold text-xs">
-                  <Sparkles size={13} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-foreground leading-none">
-                    React & Next.js
-                  </p>
-                  <p className="text-[9px] text-muted-foreground mt-0.5">
-                    ERP & Web Architect
-                  </p>
-                </div>
-              </div>
+            {/* Mobile (< 1024px): Clean, responsive desktop monitor rendered inline */}
+            <div className="lg:hidden w-full max-w-[340px] sm:max-w-[420px]">
+              <ComputerMonitor
+                activeUrl="https://nawfs.dev/overview"
+                activeTabTitle={`${personal.name} • Overview`}
+              >
+                <ComputerHeroScreen />
+              </ComputerMonitor>
             </div>
-
-            {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-4 sm:mt-5 w-full max-w-md">
-              {personal.stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center p-2 rounded-xl border border-border/70 bg-card/60 backdrop-blur-xs text-center hover:border-blue-500/40 hover:bg-card transition-all duration-200 shadow-xs"
-                >
-                  <span className="text-sm sm:text-base font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                    {stat.value}
-                  </span>
-                  <span className="text-[10px] font-medium text-muted-foreground mt-0.5 leading-tight">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

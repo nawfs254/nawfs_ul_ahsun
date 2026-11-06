@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectItem } from "@/data/portfolioData";
 import {
@@ -39,15 +40,28 @@ export default function GalleryModal({
   const title = project?.title || legacyTitle || "Project Details";
 
   const [current, setCurrent] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (open) {
       setCurrent(0);
       document.body.style.overflow = "hidden";
+      document.body.classList.add("modal-open");
+      if (typeof window !== "undefined" && (window as any).lenis) {
+        (window as any).lenis.stop();
+      }
     }
 
     return () => {
       document.body.style.overflow = "auto";
+      document.body.classList.remove("modal-open");
+      if (typeof window !== "undefined" && (window as any).lenis) {
+        (window as any).lenis.start();
+      }
     };
   }, [open, project]);
 
@@ -67,12 +81,13 @@ export default function GalleryModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, images.length, onClose]);
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
-  return (
+  return createPortal(
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/85 backdrop-blur-md overflow-y-auto"
+        className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain select-none"
+        data-lenis-prevent="true"
         onClick={onClose}
       >
         <motion.div
@@ -81,7 +96,8 @@ export default function GalleryModal({
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-5xl rounded-2xl border border-border/80 bg-background shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col"
+          data-lenis-prevent="true"
+          className="relative w-full max-w-5xl rounded-2xl border border-border/80 bg-background shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col overscroll-contain select-text"
         >
           {/* Top Bar for Mobile & Close Trigger */}
           <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-border/70 bg-card/60 backdrop-blur-xs">
@@ -106,7 +122,10 @@ export default function GalleryModal({
           </div>
 
           {/* 2-Section Grid: Left Images, Right Detailed Text */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto lg:overflow-hidden flex-1">
+          <div
+            data-lenis-prevent="true"
+            className="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto lg:overflow-hidden flex-1 overscroll-contain"
+          >
             {/* LEFT SECTION: Screenshots & Image Carousel */}
             <div className="lg:col-span-7 bg-slate-950/95 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border/60 p-4 sm:p-5 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[460px]">
               {/* Main Image Stage */}
@@ -191,7 +210,10 @@ export default function GalleryModal({
             </div>
 
             {/* RIGHT SECTION: Detailed Project Text & Metadata */}
-            <div className="lg:col-span-5 p-5 sm:p-6 lg:p-7 flex flex-col justify-between overflow-y-auto max-h-[48vh] lg:max-h-full">
+            <div
+              data-lenis-prevent="true"
+              className="lg:col-span-5 p-5 sm:p-6 lg:p-7 flex flex-col justify-between overflow-y-auto max-h-[48vh] lg:max-h-full overscroll-contain"
+            >
               <div className="space-y-4">
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground leading-tight">
@@ -306,6 +328,7 @@ export default function GalleryModal({
           </div>
         </motion.div>
       </div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

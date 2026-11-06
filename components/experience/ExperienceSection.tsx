@@ -22,7 +22,7 @@ export default function ExperienceSection() {
   });
 
   return (
-    <section ref={sectionRef} id="experience" className="relative py-12 md:py-16 border-t border-border/50">
+    <section ref={sectionRef} id="experience" className="relative z-30 py-12 md:py-16 border-t border-border/40 bg-transparent">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <motion.div
@@ -83,7 +83,7 @@ export default function ExperienceSection() {
                 </motion.div>
 
                 {/* Experience Card */}
-                <div className="rounded-2xl border border-border/70 bg-card/60 backdrop-blur-xs p-5 sm:p-6 shadow-xs hover:border-blue-500/40 hover:bg-card/90 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                <div className="rounded-2xl border border-border/70 bg-card/90 backdrop-blur-md p-5 sm:p-6 shadow-md hover:border-blue-500/40 hover:bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
                   {/* Top Bar: Role, Company, Period */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border/50">
                     <div>

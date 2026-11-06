@@ -7,6 +7,9 @@ import { PortfolioProvider } from "@/context/PortfolioContext";
 import Footer from "@/components/footer/Footer";
 import { ParticleCanvas } from "@/components/ParticleBackground";
 import Navbar from "@/components/navbar/Navbar";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import ScrollToTop from "@/components/ScrollToTop";
+import CustomCursor from "@/components/CustomCursor";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -50,10 +53,13 @@ export default function RootLayout({
           enableSystem
         >
           <PortfolioProvider>
+            <CustomCursor />
+            <ScrollProgressBar />
             <ParticleCanvas />
             <Navbar />
             <main className="flex-1 w-full flex flex-col z-10">{children}</main>
             <Footer />
+            <ScrollToTop />
           </PortfolioProvider>
         </ThemeProvider>
       </body>

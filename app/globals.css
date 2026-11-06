@@ -129,7 +129,7 @@
   }
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body, header, nav, section, footer, main, .bg-card, .bg-background, .bg-muted {
@@ -150,4 +150,26 @@
 
 ::view-transition-new(root) {
   z-index: 9999;
+}
+
+/* Hide flying desktop computer when any modal is open */
+body.modal-open #master-laptop-layer {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+#flying-laptop {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Custom Cursor: completely hide default system cursor on desktop mouse devices */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  body:not(.admin-body),
+  body:not(.admin-body) * {
+    cursor: none !important;
+  }
 }

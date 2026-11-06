@@ -18,17 +18,27 @@ export default function ScrollNavigationDots() {
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight * 0.4;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i].id);
-        if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSection(sections[i].id);
-            break;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + window.innerHeight * 0.4;
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const el = document.getElementById(sections[i].id);
+            if (el) {
+              const top = el.getBoundingClientRect().top + window.scrollY;
+              if (scrollPosition >= top) {
+                setActiveSection((prev) =>
+                  prev !== sections[i].id ? sections[i].id : prev
+                );
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

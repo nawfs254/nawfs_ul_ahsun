@@ -77,7 +77,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-12 md:py-16 border-t border-border/50">
+    <section id="contact" className="relative z-30 py-12 md:py-16 border-t border-border/50 bg-transparent">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header with Scroll Reveal */}
         <motion.div
