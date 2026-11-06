@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "./providers";
 import { PortfolioProvider } from "@/context/PortfolioContext";
+import SmoothScrollProvider from "@/components/computer/SmoothScrollProvider";
 import Footer from "@/components/footer/Footer";
 import { ParticleCanvas } from "@/components/ParticleBackground";
 import Navbar from "@/components/navbar/Navbar";
@@ -38,7 +39,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "h-full",
+        "min-h-full",
         "antialiased",
         geistSans.variable,
         geistMono.variable,
@@ -53,13 +54,15 @@ export default function RootLayout({
           enableSystem
         >
           <PortfolioProvider>
-            <CustomCursor />
-            <ScrollProgressBar />
-            <ParticleCanvas />
-            <Navbar />
-            <main className="flex-1 w-full flex flex-col z-10">{children}</main>
-            <Footer />
-            <ScrollToTop />
+            <SmoothScrollProvider>
+              <CustomCursor />
+              <ScrollProgressBar />
+              <ParticleCanvas />
+              <Navbar />
+              <main className="flex-1 w-full flex flex-col z-10">{children}</main>
+              <Footer />
+              <ScrollToTop />
+            </SmoothScrollProvider>
           </PortfolioProvider>
         </ThemeProvider>
       </body>

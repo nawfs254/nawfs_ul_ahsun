@@ -50,11 +50,16 @@ export default function ScrollToTop() {
       if (typeof window !== "undefined" && (window as any).lenis) {
         const lenis = (window as any).lenis;
         const lenisHandler = (e: any) => {
-          if (typeof e.scroll === "number") {
-            const shouldShow = e.scroll > 250;
-            setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
-          }
-          if (typeof e.progress === "number") {
+          const scrollY =
+            typeof e.scroll === "number" ? e.scroll : window.scrollY || 0;
+          const shouldShow = scrollY > 250;
+          setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
+
+          const totalHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            updateRing(scrollY / totalHeight);
+          } else if (typeof e.progress === "number") {
             updateRing(e.progress);
           }
         };

@@ -43,7 +43,13 @@ export default function ScrollProgressBar() {
       if (typeof window !== "undefined" && (window as any).lenis) {
         const lenis = (window as any).lenis;
         const lenisHandler = (e: any) => {
-          if (typeof e.progress === "number") {
+          const scrollY =
+            typeof e.scroll === "number" ? e.scroll : window.scrollY || 0;
+          const totalHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            setBarProgress(scrollY / totalHeight);
+          } else if (typeof e.progress === "number") {
             setBarProgress(e.progress);
           }
         };

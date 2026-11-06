@@ -2,7 +2,6 @@ import React from "react";
 import db from "@/lib/db";
 import { PortfolioProvider } from "@/context/PortfolioContext";
 import ScrollNavigationDots from "@/components/ScrollNavigationDots";
-import SmoothScrollProvider from "@/components/computer/SmoothScrollProvider";
 import HeroSection from "@/components/herosection/HeroSection";
 import AboutSection from "@/components/about/AboutSection";
 import ExperienceSection from "@/components/experience/ExperienceSection";
@@ -27,36 +26,34 @@ export default async function Page() {
 
   return (
     <PortfolioProvider initialData={initialData as any}>
-      <SmoothScrollProvider>
-        <div className="relative w-full flex flex-col">
-          {/* Floating Vertical Section Navigation Dots */}
-          <ScrollNavigationDots />
+      <div className="relative w-full flex flex-col">
+        {/* Floating Vertical Section Navigation Dots */}
+        <ScrollNavigationDots />
 
-          {/* 1. Hero Section (#home) with 3D Laptop */}
-          <HeroSection />
+        {/* 1. Hero Section (#home) with 3D Laptop */}
+        <HeroSection />
 
-          {/* 2. About Me Section (#about) */}
-          <AboutSection />
+        {/* 2. About Me Section (#about) */}
+        <AboutSection />
 
-          {/* 3. Professional Experience Section (#experience) */}
-          <ExperienceSection />
+        {/* 3. Professional Experience Section (#experience) */}
+        <ExperienceSection />
 
-          {/* 4. Technical Skills & Tools (#skills) */}
-          <SkillsSection />
+        {/* 4. Technical Skills & Tools (#skills) */}
+        <SkillsSection />
 
-          {/* 5. Enterprise Projects Section (#projects) */}
-          <ProjectsSection isDesktopFlightActive={true} />
+        {/* 5. Enterprise Projects Section (#projects) */}
+        <ProjectsSection isDesktopFlightActive={true} />
 
-          {/* 6. Academic Credentials (#education) */}
-          <EducationSection />
+        {/* 6. Academic Credentials (#education) */}
+        <EducationSection />
 
-          {/* 7. Contact Section (#contact) */}
-          <ContactSection />
+        {/* 7. Contact Section (#contact) */}
+        <ContactSection />
 
-          {/* Master Laptop Flight Controller (Zoom out & slide right-to-left -> Enlarge near Projects -> Vertical scroll inside laptop -> Exit) */}
-          <LaptopFlightController />
-        </div>
-      </SmoothScrollProvider>
+        {/* Master Laptop Flight Controller (Zoom out & slide right-to-left -> Enlarge near Projects -> Vertical scroll inside laptop -> Exit) */}
+        <LaptopFlightController />
+      </div>
     </PortfolioProvider>
   );
 }
